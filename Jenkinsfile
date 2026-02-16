@@ -3,17 +3,37 @@ pipeline {
 
     stages {
 
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/sanjayaaaaa973/jenkins-demo'
+            }
+        }
+
         stage('Compile') {
             steps {
                 bat 'javac Hello.java'
             }
         }
 
-        stage('Archive Artifacts') {
+        stage('Run') {
             steps {
-                archiveArtifacts artifacts: '*.class', fingerprint: true
+                bat 'java Hello'
             }
         }
 
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: '*.class'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build Success ✅'
+        }
+        failure {
+            echo 'Build Failed ❌'
+        }
     }
 }
