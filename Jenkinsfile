@@ -5,37 +5,37 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Code checked out from Git'
+                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
             }
         }
 
-        stage('Build') {
+        stage('Compile') {
             steps {
-                echo 'Building project...'
+                bat 'javac Hello.java'
             }
         }
 
-        stage('Test') {
+        stage('Test Run') {
             steps {
-                echo 'Running tests...'
+                bat 'java Hello'
             }
         }
 
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: '*.class', fingerprint: true
+            }
+        }
     }
 
     post {
 
         success {
-            echo 'Build completed successfully!'
+            echo 'Build Successful ✅'
         }
 
         failure {
-            echo 'Build failed. Please check logs.'
+            echo 'Build Failed ❌'
         }
-
-        always {
-            echo 'Pipeline finished.'
-        }
-
     }
 }
