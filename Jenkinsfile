@@ -5,13 +5,13 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Code checked out from Git repository'
+                echo 'Code checked out from Git'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building application...'
+                echo 'Building project...'
             }
         }
 
@@ -22,4 +22,13 @@ pipeline {
         }
 
     }
-}
+
+    post {
+
+        success {
+            echo 'Build completed successfully!'
+        }
+
+        failure {
+            echo 'Build failed. Please check logs.'
+        }
