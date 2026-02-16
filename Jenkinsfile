@@ -32,3 +32,10 @@ pipeline {
         failure {
             echo 'Build failed. Please check logs.'
         }
+
+        always {
+            echo 'Pipeline finished.'
+        }
+
+    }
+}
